@@ -1,0 +1,41 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  
+  <p>
+    <strong>Title:</strong>
+    <%= @blog.title %>
+  </p>
+  
+  <p>
+    <strong>Content:</strong>
+    <%= @blog.content.html_safe %>
+  </p>
+  
+  <p>
+    <strong>Image:</strong></br>
+    <img src="<%= @blog.image %>" height="200" width="300"/>
+  </p>
+
+  <%= link_to 'Edit', edit_blog_path(@blog) ,class: "btn btn-secondary btn-sm"%> |
+  <%= link_to 'Back', blogs_path ,class: "btn btn-secondary btn-sm"%>
+  
+  <%= form_tag "/blogs/#{@blog.id}/create_comment" do%>
+    <%= text_field_tag :content, "", class: 'form-control', placeholder: "댓글을 달아주세요."%>
+    <%= submit_tag "댓글달기", class: "btn btn-primary"%>
+  <% end%>
+  
+  
+
+<% @blog.comments.reverse.each do |c|%>
+
+    <div class="media">
+        <img class="mr-3" src="<%= c.user.profile.thumb%>" alt="Generic placeholder image" >
+        <div class="media-body">
+        <h5 class="mt-0"><%= c.user.username%></h5>
+        <%= c.content%>
+        </div>
+    </div>
+<% end%>
+</table>
+  
+</div>
